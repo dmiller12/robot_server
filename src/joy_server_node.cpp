@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "joy_server");
     ros::NodeHandle nh;
 
-    ros::Publisher joy_pub = nh.advertise<sensor_msgs::Joy>("joy_teleop/joy", 10);
+    ros::Publisher joy_pub = nh.advertise<sensor_msgs::Joy>("joy", 10);
     ros::Rate loop_rate(20);
 
     while (ros::ok()) {
@@ -37,15 +37,19 @@ int main(int argc, char **argv) {
             printf("rec %d bytes from %s:%d <%s>\n", num_rec_bytes, remote_source_ip_address, remote_source_portnum,
                    receive_buffer);
 
+            std::string receive_buffer_str(reinterpret_cast<char *>(receive_buffer));
             sensor_msgs::Joy joy_msg;
             joy_msg.header.stamp = ros::Time::now();
-            std::string receive_buffer_str(reinterpret_cast<char *>(receive_buffer));
-
-            joy_msg.header.frame_id = receive_buffer_str;
-
             std::vector<float> axes = {0, 0, 0, 0, 0, 0, 0, 0};
             std::vector<int> buttons(13, 0);
-            buttons[4] = 1;
+
+            const char *cstr = receive_buffer_str.c_str();
+
+            std::sscanf(cstr, "oculus control left %1d X%f Y%f T%f G%f b%1d%1d%1d right %1d X%f Y%f T%f G%f b%1d%1d%1d",
+                        &buttons[4], &axes[0], &axes[1], &axes[3], &axes[7], &buttons[1], &buttons[2], &buttons[0],
+                        &buttons[5], &axes[2], &axes[5], &axes[4], &axes[6], &buttons[3], &buttons[6], &buttons[7]);
+            joy_msg.header.frame_id = receive_buffer_str;
+            axes[0] = -1.0 * axes[0];
 
             joy_msg.axes = axes;
             joy_msg.buttons = buttons;
