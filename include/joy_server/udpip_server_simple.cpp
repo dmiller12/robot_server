@@ -23,7 +23,7 @@
 #include <cstdio>
 #include <netinet/in.h>
 
-#include "udpip_linux.c"
+#include "udpip_linux.cpp"
 
 #ifdef _WIN32
 #define WINDOWS_VERSION

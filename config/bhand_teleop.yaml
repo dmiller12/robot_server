@@ -1,0 +1,15 @@
+teleop:
+  bhand:
+    type: topic
+    message_type: joy_server/BhandTeleop
+    topic_name: bhand_vel
+    deadman_buttons: [8]
+    axis_mappings:
+      -
+        axis: 0
+        target: spread
+        scale: -1.0
+      -
+        axis: 1
+        target: grasp
+    

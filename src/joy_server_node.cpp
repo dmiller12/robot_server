@@ -5,7 +5,7 @@
 #include "ros/ros.h"
 #include "sensor_msgs/Joy.h"
 
-#include "udpip_server_simple.c"
+#include "joy_server/udpip_server_simple.cpp"
 
 #define PORT_NUM 20100
 #define RECEIVE_BUFFER_SIZE 2048
@@ -41,15 +41,21 @@ int main(int argc, char **argv) {
             sensor_msgs::Joy joy_msg;
             joy_msg.header.stamp = ros::Time::now();
             std::vector<float> axes = {0, 0, 0, 0, 0, 0, 0, 0};
-            std::vector<int> buttons(13, 0);
+            std::vector<int32_t> buttons(13, 0);
 
             const char *cstr = receive_buffer_str.c_str();
 
             std::sscanf(cstr, "oculus control left %1d X%f Y%f T%f G%f b%1d%1d%1d right %1d X%f Y%f T%f G%f b%1d%1d%1d",
                         &buttons[4], &axes[0], &axes[1], &axes[3], &axes[7], &buttons[1], &buttons[2], &buttons[0],
                         &buttons[5], &axes[2], &axes[5], &axes[4], &axes[6], &buttons[3], &buttons[6], &buttons[7]);
-            joy_msg.header.frame_id = receive_buffer_str;
+            joy_msg.header.frame_id = "/dev/occulus";
             axes[0] = -1.0 * axes[0];
+
+            if (axes[7] > 0.8) {
+                buttons[8] = 1;
+            } else {
+                buttons[8] = 0;
+            }
 
             joy_msg.axes = axes;
             joy_msg.buttons = buttons;
