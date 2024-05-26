@@ -17,4 +17,6 @@
 		<rosparam file="$(find joy_server)/config/ps4_bhand_teleop.yaml" command="load" />
 		<node pkg="joy_teleop" type="joy_teleop.py" name="bhand_teleop" />
 	</group>
+
+	<include file="$(find bhand_mux)/launch/bhand_mux.launch" />
 </launch>
