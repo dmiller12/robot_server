@@ -28,6 +28,10 @@ int main(int argc, char **argv) {
     ros::Publisher joy_pub = nh.advertise<sensor_msgs::Joy>("joy", 10);
     ros::Rate loop_rate(20);
 
+    double deadzone;
+
+    nh.param<double>("deadzone", deadzone, 0.05);
+
     while (ros::ok()) {
 
         int num_rec_bytes = udp_simple_server_check_for_received_datagram(
