@@ -5,16 +5,16 @@
 	<group ns="oculus_teleop">
 
 		<rosparam command="load" file="$(find husky_control)/config/teleop_ps4.yaml" />
-		<node pkg="joy_server" type="joy_server_node" name="joy_node" output="screen" />
+		<node pkg="robot_server" type="joy_server_node" name="joy_node" output="screen" />
 		<node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy" />
 
-		<rosparam file="$(find joy_server)/config/oculus_bhand_teleop.yaml" command="load" />
+		<rosparam file="$(find robot_server)/config/oculus_bhand_teleop.yaml" command="load" />
 		<node pkg="joy_teleop" type="joy_teleop.py" name="bhand_teleop" />
 
 	</group>
 
 	<group ns="joy_teleop">
-		<rosparam file="$(find joy_server)/config/ps4_bhand_teleop.yaml" command="load" />
+		<rosparam file="$(find robot_server)/config/ps4_bhand_teleop.yaml" command="load" />
 		<node pkg="joy_teleop" type="joy_teleop.py" name="bhand_teleop" />
 	</group>
 

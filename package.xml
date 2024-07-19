@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>joy_server</name>
+  <name>robot_server</name>
   <version>0.0.0</version>
-  <description>The joy_server package</description>
+  <description>The robot_server package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->

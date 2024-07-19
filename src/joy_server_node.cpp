@@ -5,7 +5,7 @@
 #include "ros/ros.h"
 #include "sensor_msgs/Joy.h"
 
-#include "joy_server/udpip_server_simple.cpp"
+#include "robot_server/udpip_server_simple.cpp"
 
 #define PORT_NUM 20100
 #define RECEIVE_BUFFER_SIZE 2048
