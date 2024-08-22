@@ -18,5 +18,15 @@
 		<node pkg="joy_teleop" type="joy_teleop.py" name="bhand_teleop" />
 	</group>
 
+	 <group ns="nav_controller_teleop">
+		<rosparam file="$(find robot_server)/config/nav_controller_bhand_teleop.yaml" command="load" />
+		<node pkg="joy_teleop" type="joy_teleop.py" name="bhand_teleop" />
+
+
+		<rosparam command="load" file="$(find husky_custom)/config/teleop_nav_controller.yaml" />
+		<node pkg="joy" type="joy_node" name="joy_node"/>
+		<node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy" />
+	</group>
+
 	<include file="$(find bhand_mux)/launch/bhand_mux.launch" />
 </launch>

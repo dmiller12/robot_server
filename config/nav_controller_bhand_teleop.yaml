@@ -3,7 +3,7 @@ teleop:
     type: topic
     message_type: bhand_teleop_msgs/BhandTeleop
     topic_name: bhand_vel
-    deadman_buttons: [8]
+    deadman_buttons: [5]
     axis_mappings:
       -
         axis: 0

@@ -1,7 +1,7 @@
 teleop:
   bhand:
     type: topic
-    message_type: joy_server/BhandTeleop
+    message_type: bhand_teleop_msgs/BhandTeleop
     topic_name: bhand_vel
     deadman_buttons: [0]
     axis_mappings:
