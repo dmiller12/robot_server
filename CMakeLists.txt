@@ -11,21 +11,12 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
-  message_generation
+  bhand_teleop_msgs
 )
 
-## Generate messages in the 'msg' folder
-add_message_files(
-  FILES
-  BhandTeleop.msg
-)
-
-generate_messages(
-  DEPENDENCIES sensor_msgs std_msgs
-)
 
 catkin_package(
- CATKIN_DEPENDS std_msgs message_runtime
+ CATKIN_DEPENDS std_msgs bhand_teleop_msgs
 )
 
 ###########
