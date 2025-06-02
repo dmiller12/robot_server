@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     ros::NodeHandle nh;
 
     ros::Publisher joy_pub = nh.advertise<sensor_msgs::Joy>("joy", 10);
-    ros::Rate loop_rate(20);
+    ros::Rate loop_rate(100);
 
     double deadzone;
 
@@ -49,6 +49,7 @@ int main(int argc, char **argv) {
 
             const char *cstr = receive_buffer_str.c_str();
 
+
             std::sscanf(cstr, "oculus control left %1d X%f Y%f T%f G%f b%1d%1d%1d right %1d X%f Y%f T%f G%f b%1d%1d%1d",
                         &buttons[4], &axes[0], &axes[1], &axes[3], &axes[7], &buttons[1], &buttons[2], &buttons[0],
                         &buttons[5], &axes[2], &axes[5], &axes[4], &axes[6], &buttons[3], &buttons[6], &buttons[7]);
@@ -61,7 +62,7 @@ int main(int argc, char **argv) {
                 buttons[8] = 0;
             }
 
-            joy_msg.axes = axes;
+            joy_msg.axes = axes;    
             joy_msg.buttons = buttons;
 
             joy_pub.publish(joy_msg);
@@ -69,8 +70,9 @@ int main(int argc, char **argv) {
             memset(receive_buffer, 0,
                    RECEIVE_BUFFER_SIZE); // clear to all 0's so we don't confuse parts of previous packets
 
-            loop_rate.sleep();
         }
+        ros::spinOnce();
+        loop_rate.sleep();
     }
     udpip_close_simple_server();
     printf("Closed server socket on port %d\n", PORT_NUM);
