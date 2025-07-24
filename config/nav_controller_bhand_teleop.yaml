@@ -1,7 +1,7 @@
 teleop:
   bhand:
     type: topic
-    message_type: bhand_teleop_msgs/BhandTeleop
+    message_type: gripper_ros_common/VelocitySetpoint
     topic_name: bhand_vel
     deadman_buttons: [6]
     axis_mappings:

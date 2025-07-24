@@ -11,12 +11,12 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
-  bhand_teleop_msgs
+  gripper_ros_common
 )
 
 
 catkin_package(
- CATKIN_DEPENDS std_msgs bhand_teleop_msgs
+ CATKIN_DEPENDS std_msgs gripper_ros_common
 )
 
 ###########
